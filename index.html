@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="./manifest.json">
+    <script src="serviceworker.js"></script>
+    <style>
+        .wrapper{
+            display: flex;
+            flex-flow: row wrap;
+            text-align: center;
+        }
+        .wrapper > * {
+            padding: 10px;
+            margin : 10px;
+            flex: 1 100%;
+            border-radius: 10px;
+        }
+
+        .header{
+            background-color: blue;
+            height: 120px;
+        }
+
+        .main{
+            background-color: aqua;
+            height: 300px;
+        }
+        .aside1{
+            background-color: brown;
+        }
+        .footer{
+            background-color: violet;
+            height: 80px;
+        }
+
+        @media all and (min-width:800px){
+            .main{
+                flex:2;
+            }
+            .aside1{
+                order: 2;
+            }
+            .main{
+                order: 1;
+            }
+            .footer{
+                order: 4;
+            }
+        }
+        @media all and (min-width:600px){
+            .aside1{
+                flex:1;
+            }
+        }
+    </style>
+    <title>Responsive web app</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <h1> header</h1>
+        </header>
+        <article class="main">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur dolores nam dolorem eaque ex ratione voluptate cum repellat voluptas odio fugit voluptatem, incidunt veniam velit dignissimos eligendi ullam rem accusamus.</p>
+        </article>
+        <aside class="aside1">
+            <h1>aside  1</h1>
+        </aside>
+        <footer class="footer">
+            <h1>footer</h1>
+        </footer>
+    </div>
+    <script>
+        window.addEventListener('load', () => {
+            registerSW();
+        });
+    
+        // Register the Service Worker
+        async function registerSW() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    await navigator
+                        .serviceWorker
+                        .register('serviceworker.js');
+                }
+                catch (e) {
+                    console.log('SW registration failed');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
